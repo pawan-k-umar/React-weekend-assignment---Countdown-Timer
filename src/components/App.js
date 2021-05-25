@@ -6,14 +6,21 @@ const App = () => {
   const [time, setTime] = useState(0);
 
   useEffect(()=>{
-    setTimeout(()=>{
+    const temp =setTimeout(()=>{
       time > 0 && setTime (time-1);
     },1000)
+
+    return ()=>{
+      clearTimeout(temp);
+    }
   },[time]);
 
   const fun = (e) =>{
     if(e.key==='Enter'){
-      setTime(Math.floor(e.target.value));
+      if(!isNaN(e.target.value))
+        setTime(Math.floor(e.target.value));
+      else
+        setTime(0);
     }
   }
   return (
